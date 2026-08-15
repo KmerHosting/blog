@@ -6,7 +6,7 @@ A separate Strapi 5 CMS and Next.js frontend for blog.kmerhosting.com.
 
 - cms/: Strapi 5 content management API and admin panel
 - web/: Next.js App Router frontend using Carbon React
-- SQLite data is stored outside the repository in production
+- SQLite production data stays on the VPS and is excluded from Git
 - Nginx exposes the frontend at / and Strapi at /admin and /api
 
 ## Local development
