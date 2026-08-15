@@ -1,0 +1,1 @@
+export default { routes: [{method:'GET',path:'/public-articles',handler:'article.publicList',config:{auth:false}},{method:'GET',path:'/public-articles/:slug',handler:'article.publicBySlug',config:{auth:false}}] };

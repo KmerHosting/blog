@@ -1,0 +1,4 @@
+import { Breadcrumb, BreadcrumbItem } from '@carbon/react';
+import ArticleCard from '@/components/ArticleCard';
+import { getArticles } from '@/lib/strapi';
+export default async function GuidesPage(){const articles=await getArticles();return <section className="page-grid listing-page"><Breadcrumb noTrailingSlash><BreadcrumbItem href="/">Home</BreadcrumbItem><BreadcrumbItem isCurrentPage>Guides</BreadcrumbItem></Breadcrumb><div className="eyebrow">GUIDES</div><h1>Practical guides for your next build.</h1><p className="listing-lede">Hosting, infrastructure, security, email, and database guidance from the KmerHosting team.</p><div className="listing-grid">{articles.map(a=><ArticleCard key={a.slug} article={a}/>)}</div></section>;}

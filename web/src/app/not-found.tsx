@@ -1,0 +1,1 @@
+import{Button}from'@carbon/react';export default function NotFound(){return <section className="page-grid empty-state"><div className="eyebrow">404</div><h1>That article is not available.</h1><p>The link may have changed, or the article may still be in draft.</p><Button href="/">Back to the blog</Button></section>;}

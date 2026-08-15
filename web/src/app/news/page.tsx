@@ -1,0 +1,4 @@
+import { Breadcrumb, BreadcrumbItem } from '@carbon/react';
+import ArticleCard from '@/components/ArticleCard';
+import { getArticles } from '@/lib/strapi';
+export default async function NewsPage(){const articles=await getArticles();return <section className="page-grid listing-page"><Breadcrumb noTrailingSlash><BreadcrumbItem href="/">Home</BreadcrumbItem><BreadcrumbItem isCurrentPage>News</BreadcrumbItem></Breadcrumb><div className="eyebrow">NEWS</div><h1>What is changing in hosting and infrastructure.</h1><p className="listing-lede">Short, useful updates and practical context for teams operating online.</p><div className="listing-grid">{articles.slice(0,3).map(a=><ArticleCard key={a.slug} article={a}/>)}</div></section>;}
