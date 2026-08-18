@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:ci": "node scripts/ci-build.mjs",
     "start": "next start",
     "lint": "eslint",
     "audit:carbon": "node scripts/audit-carbon.mjs",
-    "check": "npm run audit:carbon && npm run lint && tsc --noEmit"
+    "check": "npm run audit:carbon && npm run lint && tsc --noEmit && npm run build:ci"
   },
   "dependencies": {
     "@carbon/icons-react": "^11.86.0",
