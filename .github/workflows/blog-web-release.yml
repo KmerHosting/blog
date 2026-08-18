@@ -29,4 +29,4 @@ jobs:
           fi
           git tag "$VERSION" "${{ github.event.workflow_run.head_sha }}"
           git push origin "$VERSION"
-          gh release create "$VERSION" --verify-tag --title "KmerHosting Blog ${VERSION#v}" --generate-notes
+          gh release create "$VERSION" --verify-tag --title "$VERSION" --generate-notes
