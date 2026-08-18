@@ -10,23 +10,18 @@ type ThemeContextValue = { theme: CarbonTheme; toggleTheme: () => void };
 const STORAGE_KEY = 'kmerhosting-blog-theme';
 const ThemeContext = createContext<ThemeContextValue>({ theme: 'white', toggleTheme: () => undefined });
 
-function systemTheme(): CarbonTheme {
-  if (typeof window === 'undefined') return 'white';
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'g100' : 'white';
-}
-
 export function CarbonExperienceProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<CarbonTheme>('white');
 
   useEffect(() => {
-    const stored = window.localStorage.getItem(STORAGE_KEY);
-    if (stored === 'white' || stored === 'g100') {
-      setTheme(stored);
-      return;
-    }
     const media = window.matchMedia('(prefers-color-scheme: dark)');
-    const applySystem = () => setTheme(media.matches ? 'g100' : 'white');
-    applySystem();
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    const initial: CarbonTheme = stored === 'white' || stored === 'g100' ? stored : media.matches ? 'g100' : 'white';
+    queueMicrotask(() => setTheme(initial));
+
+    const applySystem = () => {
+      if (!window.localStorage.getItem(STORAGE_KEY)) setTheme(media.matches ? 'g100' : 'white');
+    };
     media.addEventListener('change', applySystem);
     return () => media.removeEventListener('change', applySystem);
   }, []);
