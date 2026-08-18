@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Column, Grid, Link as CarbonLink } from '@carbon/react';
 import { LogoGithub, LogoLinkedin, LogoX } from '@carbon/icons-react';
 
@@ -12,7 +13,7 @@ export default function SiteFooter() {
   return <footer className="blog-footer">
     <Grid fullWidth>
       <Column sm={4} md={4} lg={7} className="blog-footer-intro">
-        <a className="blog-footer-brand" href="/">KmerHosting <span>Blog</span></a>
+        <Link className="blog-footer-brand" href="/">KmerHosting <span>Blog</span></Link>
         <p>Practical infrastructure knowledge for faster, safer and more reliable products.</p>
         <div className="blog-footer-socials">
           <CarbonLink href="https://github.com/KmerHosting" aria-label="KmerHosting on GitHub"><LogoGithub size={20} /></CarbonLink>
