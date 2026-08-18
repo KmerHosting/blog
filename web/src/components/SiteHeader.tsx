@@ -15,6 +15,7 @@ import {
   SkipToContent,
 } from '@carbon/react';
 import { Moon, Search, Sun } from '@carbon/icons-react';
+import { useRouter } from 'next/navigation';
 import { useCarbonTheme } from './CarbonExperience';
 
 const nav = [
@@ -25,6 +26,7 @@ const nav = [
 ] as const;
 
 export default function SiteHeader() {
+  const router = useRouter();
   const { theme, toggleTheme } = useCarbonTheme();
 
   return <HeaderContainer render={({ isSideNavExpanded, onClickSideNavExpand }) => <>
@@ -42,7 +44,7 @@ export default function SiteHeader() {
         {nav.map(([label, href]) => <HeaderMenuItem key={href} href={href}>{label}</HeaderMenuItem>)}
       </HeaderNavigation>
       <HeaderGlobalBar>
-        <HeaderGlobalAction aria-label="Browse articles" tooltipAlignment="center" onClick={() => window.location.assign('/#articles')}>
+        <HeaderGlobalAction aria-label="Browse articles" tooltipAlignment="center" onClick={() => router.push('/#articles')}>
           <Search size={20} />
         </HeaderGlobalAction>
         <HeaderGlobalAction aria-label={theme === 'white' ? 'Use dark theme' : 'Use light theme'} tooltipAlignment="end" onClick={toggleTheme}>
