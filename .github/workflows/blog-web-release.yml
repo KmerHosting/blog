@@ -1,0 +1,32 @@
+name: Publish Blog web release
+
+on:
+  workflow_run:
+    workflows: ["Blog web CI"]
+    types: [completed]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 0
+      - name: Publish version release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="v$(node -p "require('./web/package.json').version")"
+          git fetch --tags --force
+          if git rev-parse "$VERSION" >/dev/null 2>&1; then
+            echo "$VERSION already exists"
+            exit 0
+          fi
+          git tag "$VERSION" "${{ github.event.workflow_run.head_sha }}"
+          git push origin "$VERSION"
+          gh release create "$VERSION" --verify-tag --title "KmerHosting Blog ${VERSION#v}" --generate-notes
